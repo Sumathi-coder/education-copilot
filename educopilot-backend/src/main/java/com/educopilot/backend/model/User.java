@@ -1,8 +1,14 @@
 package com.educopilot.backend.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
+/**
+ * STUB — Person A owns the real User entity (with password, JWT-related
+ * fields, etc.) in the auth branch. This minimal version exists only so
+ * Person B's module (Course, Enrollment, Test...) compiles and can be
+ * tested independently. DELETE this file when merging with Person A's
+ * branch — use their User.java instead.
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -11,81 +17,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String email;
 
-    // Stores the BCrypt HASH, never the plain-text password
-    @Column(nullable = false)
-    private String password;
+    private String role; // STUDENT, PROFESSOR, ADMIN
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    public User() {}
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public User() {
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public User(String name, String email, String password, Role role) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    // ---- Getters and setters ----
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }

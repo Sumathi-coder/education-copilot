@@ -1,0 +1,76 @@
+{
+  "info": {
+    "name": "EduCopilot - Person B (Courses, Tests, Submissions)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Course",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Data Structures\",\n  \"code\": \"DSA101\",\n  \"description\": \"Core DSA course\",\n  \"professorId\": 1\n}"
+        },
+        "url": "{{base_url}}/api/courses"
+      }
+    },
+    {
+      "name": "Get All Courses",
+      "request": { "method": "GET", "url": "{{base_url}}/api/courses" }
+    },
+    {
+      "name": "Get Course by ID",
+      "request": { "method": "GET", "url": "{{base_url}}/api/courses/1" }
+    },
+    {
+      "name": "Enroll Student",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/api/enrollments?studentId=2&courseId=1"
+      }
+    },
+    {
+      "name": "Create Test",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"AVL Trees Quiz\",\n  \"difficulty\": \"MEDIUM\",\n  \"duration\": 30,\n  \"createdBy\": 1,\n  \"course\": { \"id\": 1 }\n}"
+        },
+        "url": "{{base_url}}/api/professor/test"
+      }
+    },
+    {
+      "name": "Add Question to Test",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"What is 1NF?\",\n  \"questionType\": \"MCQ\",\n  \"difficulty\": \"EASY\",\n  \"topic\": \"Normalization\",\n  \"marks\": 1\n}"
+        },
+        "url": "{{base_url}}/api/professor/test/1/questions"
+      }
+    },
+    {
+      "name": "Submit Test",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"testId\": 1,\n  \"studentId\": 2,\n  \"answers\": { \"1\": \"Option A\" }\n}"
+        },
+        "url": "{{base_url}}/api/tests/submit"
+      }
+    },
+    {
+      "name": "Get Submission",
+      "request": { "method": "GET", "url": "{{base_url}}/api/grading/1" }
+    }
+  ],
+  "variable": [{ "key": "base_url", "value": "http://localhost:8080" }]
+}
