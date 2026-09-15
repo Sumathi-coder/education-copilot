@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Newsreader", "Georgia", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand — Dark green (deep surfaces, sidebar, primary text) */
+  --color-brand-50: #EEF3F0;
+  --color-brand-100: #DCE7E1;
+  --color-brand-200: #B4CCBF;
+  --color-brand-300: #86AB98;
+  --color-brand-400: #4C7C64;
+  --color-brand-500: #1F5A42;
+  --color-brand-600: #14432F;
+  --color-brand-700: #0A3323;
+  --color-brand-800: #07281B;
+  --color-brand-900: #041C12;
+  --color-brand-950: #02110B;
+
+  /* Teal — Midnight green (interactive / primary actions) */
+  --color-teal-50: #E7F1F3;
+  --color-teal-100: #CFE4E7;
+  --color-teal-200: #9BC7CE;
+  --color-teal-300: #63A6B0;
+  --color-teal-400: #2F818E;
+  --color-teal-500: #105666;
+  --color-teal-600: #0D4753;
+  --color-teal-700: #0A3941;
+  --color-teal-800: #072A30;
+  --color-teal-900: #041B1F;
+
+  /* Moss — success / progress / positive */
+  --color-moss-50: #F3F5EC;
+  --color-moss-100: #E5E9D5;
+  --color-moss-200: #CCD5AC;
+  --color-moss-300: #AFBD82;
+  --color-moss-400: #95A66A;
+  --color-moss-500: #839958;
+  --color-moss-600: #687A44;
+  --color-moss-700: #4F5D34;
+  --color-moss-800: #373F24;
+
+  /* Rosy — warm accent (AI, highlights, flags) */
+  --color-rosy-50: #FBF1EF;
+  --color-rosy-100: #F5E0DC;
+  --color-rosy-200: #EBC0B9;
+  --color-rosy-300: #E0A198;
+  --color-rosy-400: #D3968C;
+  --color-rosy-500: #C17A6E;
+  --color-rosy-600: #A25B4F;
+  --color-rosy-700: #7D453B;
+
+  /* Sand — warm neutral background family, derived from beige */
+  --color-sand-50: #FDFCF6;
+  --color-sand-100: #F7F4D5;
+  --color-sand-200: #F0ECC7;
+  --color-sand-300: #E3DEB0;
+
+  /* Ink — warm-neutral grays for text, tuned toward brand green */
+  --color-ink-900: #14201A;
+  --color-ink-700: #33453B;
+  --color-ink-500: #5C6E63;
+  --color-ink-400: #7C8C82;
+  --color-ink-300: #A9B5AD;
+  --color-ink-200: #D3DBD5;
+  --color-ink-100: #E7EBE4;
+  --color-ink-50: #F5F6F2;
+
+  --color-danger-50: #FBEDEC;
+  --color-danger-500: #B34438;
+  --color-danger-600: #94362C;
+
+  --color-warn-50: #FCF4E2;
+  --color-warn-500: #B87F1F;
+
+  --shadow-soft: 0 1px 2px rgba(10, 51, 35, 0.06), 0 8px 24px -12px rgba(10, 51, 35, 0.18);
+  --shadow-lift: 0 4px 10px rgba(10, 51, 35, 0.08), 0 16px 40px -16px rgba(10, 51, 35, 0.28);
+
+  --radius-card: 1rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-ink-200);
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-sand-50 text-ink-900 font-sans;
+    font-feature-settings: "ss01" on, "cv05" on;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: var(--color-rosy-200);
+    color: var(--color-brand-900);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-teal-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-ink-200);
+    border-radius: 999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+
+/* Functional night mode. The existing design uses utility classes, so these
+   scoped overrides keep the same palette while changing surfaces and text. */
+.dark-mode body { background: #0b1712 !important; color: #e7eee9 !important; }
+.dark-mode [class*="bg-sand-50"] { background-color: #0b1712 !important; }
+.dark-mode [class*="bg-sand-100"] { background-color: #12221a !important; }
+.dark-mode [class*="bg-white"] { background-color: #14241c !important; }
+.dark-mode [class*="bg-ink-50"] { background-color: #172820 !important; }
+.dark-mode [class*="bg-ink-100"] { background-color: #1b2c24 !important; }
+.dark-mode [class*="text-brand-900"],
+.dark-mode [class*="text-brand-800"],
+.dark-mode [class*="text-brand-700"],
+.dark-mode [class*="text-ink-900"],
+.dark-mode [class*="text-ink-800"],
+.dark-mode [class*="text-ink-700"] { color: #e7eee9 !important; }
+.dark-mode [class*="text-ink-600"],
+.dark-mode [class*="text-ink-500"] { color: #b6c6bd !important; }
+.dark-mode [class*="text-ink-400"] { color: #8fa197 !important; }
+.dark-mode [class*="border-ink-200"],
+.dark-mode [class*="border-ink-100"] { border-color: #2b4035 !important; }
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select { background-color: #14241c !important; color: #e7eee9 !important; }
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder { color: #71857a !important; }
+.dark-mode [class*="shadow-soft"],
+.dark-mode [class*="shadow-lift"] { box-shadow: 0 10px 30px rgba(0,0,0,.28) !important; }
+.dark-mode header { background-color: rgba(11,23,18,.92) !important; }
+.dark-mode .bg-teal-50, .dark-mode .bg-moss-50, .dark-mode .bg-rosy-50, .dark-mode .bg-danger-50, .dark-mode .bg-warn-50 { filter: brightness(.78); }
